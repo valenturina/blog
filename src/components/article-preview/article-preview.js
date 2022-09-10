@@ -1,17 +1,27 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import style from './article-preview.module.css'
 import {Checkbox, Chip, Avatar} from "@mui/material";
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
+import avatar from '../../assets/avatar.png';
+import {parseISO, format} from 'date-fns'
 
 const ArticlePreview = ({article}) => {
     const [checked, setChecked] = useState(false)
+    const uniqKey = () => {
+        return Date.now() + Math.random() * 10;
+    }
 
     return (
         <div className={style.preview}>
             <div className={style.text}>
                 <header>
                     <div className={style.headerInfo}>
-                        <h3 className={style.title}>{article.title}</h3>
+
+                        <Link to={`${article.slug}`}>
+                            <h3 className={style.title}>{article.title}</h3>
+                        </Link>
+
                         <Checkbox
                             sx={{p: 0}}
                             icon={<FavoriteBorder/>}
@@ -24,7 +34,7 @@ const ArticlePreview = ({article}) => {
                     </div>
                     <div>
                         {article.tagList.map((tag)=> (
-                            tag && <Chip label={tag} variant="outlined" size="small" sx={{borderRadius: 2}}/>
+                            tag && <Chip key={uniqKey()} label={tag} variant="outlined" size="small" sx={{borderRadius: 2}}/>
                         ))}
                     </div>
                 </header>
@@ -35,10 +45,10 @@ const ArticlePreview = ({article}) => {
             <div className={style.profile}>
                 <div className={style.nameInfo}>
                     <div className={style.name}>{article.author.username}</div>
-                    <div className={style.date}>sep 8, 2022</div>
+                    <div className={style.date}>{format(parseISO(article.createdAt), 'MMMM dd, yyyy')}</div>
                 </div>
                 <div className={style.avatar}>
-                    <Avatar>A</Avatar>
+                    <Avatar alt="Avatar" src={article.author.image || avatar} sx={{ width: 46, height: 46 }} ></Avatar>
                 </div>
             </div>
         </div>

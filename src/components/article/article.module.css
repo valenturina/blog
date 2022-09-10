@@ -1,10 +1,11 @@
 .article {
     width: 938px;
-    max-width: 807px;
+    min-width: 807px;
     background-color: white;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
     padding: 15px;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     gap: 25px;
 }

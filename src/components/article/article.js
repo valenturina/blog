@@ -1,22 +1,48 @@
-import React from "react";
+import React, {useEffect} from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import ReactMarkdown from 'react-markdown';
+import {useParams} from 'react-router-dom'
+import {Box} from '@mui/material';
 import ArticlePreview from "../article-preview";
+import ErrorMessage from "../error-message";
+import Spinner from '../spinner'
 import style from './article.module.css'
+import {fetchSingleArticle} from '../../store/article-slice'
+
 
 
 const Article = () => {
+    const dispatch = useDispatch();
+    const {slug} = useParams();
+
+    console.log('slug is ' + slug)
+
+    useEffect(()=> {
+        dispatch(fetchSingleArticle({slug}))
+    }, [dispatch, slug])
+
+    const article = useSelector(state => state.articles.singleArticle)
+    const status = useSelector(state => state.articles.status)
+    console.log('article ')
+    console.log(article)
+
     return (
+
         <div className={style.article}>
-            <ArticlePreview/>
-            <div>
-                On the other hand, we denounce with righteous indignation and dislike men who are so
-                beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire,
-                that they cannot foresee the pain and trouble that are bound to ensue; and equal blame
-                belongs to those who fail in their duty through weakness of will, which is the same as
-                saying through shrinking from toil and pain. These cases are perfectly simple and easy
-                to distinguish. In a free hour, when our power of choice is untrammelled and when nothing
-                prevents our being able to do what we like best, every pleasure is to be welcomed and
-                every pain avoided.
-            </div>
+            {status === 'loading' && <Spinner/> }
+            {status === 'fulfilled' &&
+                <>
+                    <ArticlePreview article={article}/>
+                    <Box>
+                        <div>
+                            <ReactMarkdown>
+                                {article.body}
+                            </ReactMarkdown>
+                        </div>
+                    </Box>
+                </>
+            }
+
         </div>
     )
 }

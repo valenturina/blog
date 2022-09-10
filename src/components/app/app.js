@@ -1,14 +1,19 @@
 import React from 'react';
-import Header from "../header";
+import {Routes, Route, Navigate} from 'react-router-dom'
 import Article from "../article";
 import ArticleList from "../article-list";
+import Layout from '../layout'
+
 
 const App = () => {
     return (
-        <div>
-            <Header/>
-            <ArticleList/>
-        </div>
+        <Routes>
+            <Route path='/' element={<Layout/>}>
+                <Route index element={<Navigate  to="articles" replace />}/>
+                <Route path='articles' element={<ArticleList/>} />
+                <Route path='articles/:slug' element={<Article/>}/>
+            </Route>
+        </Routes>
     )
 }
 

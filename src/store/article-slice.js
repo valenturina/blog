@@ -18,7 +18,12 @@ export const fetchSingleArticle = createAsyncThunk(
     'articles/fetchSingleArticle',
     async ({slug}, {rejectWithValue}) => {
         const response = await fetch(`https://blog.kata.academy/api/articles/${slug}`)
-
+        if (response.ok) {
+            const data = await response.json()
+            return data
+        } else {
+            return rejectWithValue(response.status)
+        }
     }
 )
 
@@ -26,25 +31,39 @@ export const articleSlice = createSlice({
     name: 'articles',
     initialState: {
         articles: [],
-        singleArticle: null,
+        singleArticle: {},
         articlesCount: null,
-        loading: '',
+        status: '',
         error: null
     },
     reducers: {},
     extraReducers: {
         ///fetchGetArticles
         [fetchGetArticles.pending]: (state) => {
-            state.loading = 'loading';
+            state.status = 'loading';
         },
         [fetchGetArticles.fulfilled]: (state, action) => {
             state.articles = [...action.payload.articles]
             state.articlesCount = action.payload.articlesCount
-            state.loading = 'fulfilled'
+            state.status = 'fulfilled'
         },
         [fetchGetArticles.rejected]: (state, action) => {
             state.error = action.payload
-            state.loading = 'error'
+            state.status = 'error'
+        },
+        //fetchSingleArticle
+        [fetchSingleArticle.pending]: (state) => {
+            console.log('pending')
+            state.status = 'loading';
+        },
+        [fetchSingleArticle.fulfilled]: (state, action) => {
+            console.log('fulfilled')
+            state.singleArticle = {...action.payload.article}
+            state.status = 'fulfilled'
+        },
+        [fetchSingleArticle.rejected]: (state, action) => {
+            state.error = action.payload
+            state.status = 'error'
         },
     }
 })
