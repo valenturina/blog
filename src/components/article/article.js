@@ -14,36 +14,37 @@ import {fetchSingleArticle} from '../../store/article-slice'
 const Article = () => {
     const dispatch = useDispatch();
     const {slug} = useParams();
-
-    console.log('slug is ' + slug)
+    const status = useSelector((state) => state.articles.status)
 
     useEffect(()=> {
         dispatch(fetchSingleArticle({slug}))
     }, [dispatch, slug])
 
-    const article = useSelector(state => state.articles.singleArticle)
-    const status = useSelector(state => state.articles.status)
-    console.log('article ')
-    console.log(article)
+
+    console.log(status)
+    const article = useSelector((state) => state.articles.singleArticle)
 
     return (
-
-        <div className={style.article}>
+        <>
             {status === 'loading' && <Spinner/> }
-            {status === 'fulfilled' &&
-                <>
-                    <ArticlePreview article={article}/>
-                    <Box>
-                        <div>
-                            <ReactMarkdown>
-                                {article.body}
-                            </ReactMarkdown>
-                        </div>
-                    </Box>
-                </>
-            }
+            <div className={style.article}>
+                {status === 'fulfilled' && Object.keys(article).length !== 0 ?
+                    <>
+                        <ArticlePreview article={article}/>
+                        <Box>
+                            <div>
+                                <ReactMarkdown>
+                                    {article.body}
+                                </ReactMarkdown>
+                            </div>
+                        </Box>
+                    </>
+                : <Spinner/>}
 
-        </div>
+            </div>
+
+
+        </>
     )
 }
 

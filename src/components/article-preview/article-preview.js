@@ -18,7 +18,7 @@ const ArticlePreview = ({article}) => {
                 <header>
                     <div className={style.headerInfo}>
 
-                        <Link to={`${article.slug}`}>
+                        <Link to={`${article.slug}`} style={{ textDecoration: 'none' }}>
                             <h3 className={style.title}>{article.title}</h3>
                         </Link>
 

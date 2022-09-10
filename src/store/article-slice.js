@@ -53,11 +53,11 @@ export const articleSlice = createSlice({
         },
         //fetchSingleArticle
         [fetchSingleArticle.pending]: (state) => {
-            console.log('pending')
+            console.log('pending single article')
             state.status = 'loading';
         },
         [fetchSingleArticle.fulfilled]: (state, action) => {
-            console.log('fulfilled')
+            console.log('fulfilled single article')
             state.singleArticle = {...action.payload.article}
             state.status = 'fulfilled'
         },
