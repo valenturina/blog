@@ -1,0 +1,20 @@
+.header {
+    background-color: white;
+    padding: 18px 22px;
+
+}
+.index {
+    display: block;
+    margin-right: auto;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    vertical-align: bottom;
+}
+.wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-content: baseline;
+    gap: 20px;
+    width: 100%;
+}

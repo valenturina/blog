@@ -1,0 +1,66 @@
+.preview {
+    display: flex;
+    gap: 80px;
+    justify-content: space-between;
+}
+.text {
+    max-width: 685px;
+}
+.description {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    color: #424142;
+    margin-top: 3px;
+}
+.headerInfo {
+    display: flex;
+    align-content: flex-end;
+}
+.title {
+    display: block;
+    line-height: 28px;
+    color: #1890FF;
+    font-weight: 400;
+    font-size: 20px;
+    margin-right: 13px;
+}
+.count {
+    display: block;
+    align-self: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.75);
+}
+.profile {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    min-width: 141px;
+    margin-left: auto;
+}
+.nameInfo {
+
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-end;
+}
+.name {
+
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 26px;
+    flex: 1 1 auto
+}
+.date {
+
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    flex: 1 1 auto
+}
+.avatar {
+    margin-top: 5px;
+}
