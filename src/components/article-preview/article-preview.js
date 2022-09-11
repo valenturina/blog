@@ -6,7 +6,7 @@ import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import avatar from '../../assets/avatar.png';
 import {parseISO, format} from 'date-fns'
 
-const ArticlePreview = ({article}) => {
+const ArticlePreview = ({article, openArticle}) => {
     const [checked, setChecked] = useState(false)
     const uniqKey = () => {
         return Date.now() + Math.random() * 10;
@@ -17,10 +17,11 @@ const ArticlePreview = ({article}) => {
             <div className={style.text}>
                 <header>
                     <div className={style.headerInfo}>
-
-                        <Link to={`${article.slug}`} style={{ textDecoration: 'none' }}>
-                            <h3 className={style.title}>{article.title}</h3>
-                        </Link>
+                        {!openArticle
+                            ? <Link to={`${article.slug}`} style={{ textDecoration: 'none' }}>
+                                <h3 className={style.title}>{article.title}</h3>
+                              </Link>
+                        : <h3 className={style.title}>{article.title}</h3>}
 
                         <Checkbox
                             sx={{p: 0}}
