@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import {useParams, useNavigate} from 'react-router-dom';
-import {Box, Chip} from '@mui/material';
+import {Box, Button} from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArticlePreview from "../article-preview";
 import ErrorMessage from "../error-message";
@@ -34,13 +34,14 @@ const Article = () => {
             {status === 'loading' && <Spinner/> }
             {status === 'fulfilled' && Object.keys(article).length !== 0 ?
                 (<>
-                    <Chip
-                        variant="outlined"
-                        icon={<ArrowBackIosIcon/>}
-                        label='Back'
-                        sx={{ background: 'white'}}
-                        onClick={goBack}
-                    />
+                    <div className={style.goback}>
+                        <Button
+                            variant="contained"
+                            startIcon={<ArrowBackIosIcon/>}
+                            label='Back'
+                            onClick={goBack}
+                        > Go back</Button>
+                    </div>
                     <div className={style.article}>
                         <ArticlePreview article={article} openArticle/>
                         <Box>
@@ -52,7 +53,7 @@ const Article = () => {
                         </Box>
                     </div>
                 </>)
-                : <Spinner/>}
+                : null}
 
 
 

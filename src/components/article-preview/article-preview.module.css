@@ -12,11 +12,12 @@
     font-size: 12px;
     line-height: 22px;
     color: #424142;
-    margin-top: 3px;
+    margin-top: 5px;
 }
 .headerInfo {
     display: flex;
     align-content: flex-end;
+    margin-bottom: 5px;
 }
 .title {
     display: block;
@@ -34,9 +35,14 @@
     line-height: 22px;
     color: rgba(0, 0, 0, 0.75);
 }
+.profileBlock{
+    display: flex;
+    gap: 10px
+}
 .profile {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    flex-direction: column;
     gap: 12px;
     min-width: 141px;
     margin-left: auto;
@@ -63,4 +69,8 @@
 }
 .avatar {
     margin-top: 5px;
+}
+.btnBlock{
+    display: flex;
+    justify-content: right;
 }

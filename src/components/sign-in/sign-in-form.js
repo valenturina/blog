@@ -1,16 +1,34 @@
 import React from "react";
 import {Link} from 'react-router-dom';
+import {useForm} from "react-hook-form";
 import {Box, Paper, TextField, Button} from '@mui/material';
 import style from './sign-in.module.css'
 
-const SignInForm = () => {
+const SignInForm = ({handleLogIn}) => {
+
+    const {
+        register,
+        formState: {
+            errors,
+        },
+        handleSubmit
+    } = useForm({
+        mode: 'onBlur'
+    })
+
+
+
+    const onFormSubmit = (data) => {
+        console.log(data)
+    }
+
     return(
         <Box
             sx={{
                 m: 'auto',
                 maxWidth: 384
             }}>
-            <form>
+            <form onSubmit={handleSubmit(onFormSubmit)}>
                 <Paper
                     sx={{
                         p: 5
@@ -22,14 +40,35 @@ const SignInForm = () => {
 
                     <span>E-mail</span>
                     <TextField
+                        id='email'
+                        {...register('email', {
+                            required: 'Введите корректный почтовый адрес',
+                            pattern: {
+                                message: 'Введите корректный почтовый адрес',
+                                value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+                            }
+                        })}
                         variant="outlined"
                         size="small"
                         fullWidth
-                        sx={{mb: 2, mt: 1}}
+                        sx={{mb: 3, mt: 1}}
+                        error={!!errors?.email}
+                        helperText={errors?.email?.message}
                     />
 
                     <span>Password</span>
                     <TextField
+                        {...register('password',{
+                            required: 'Введите пароль',
+                            minLength: {
+                                value: 6,
+                                message: 'Пароль не может быть меньше 6 символов'
+                            }
+                        })}
+                        error={!!errors?.password}
+                        helperText={errors?.password?.message}
+                        type="password"
+                        id='password'
                         variant="outlined"
                         size="small"
                         fullWidth
@@ -47,7 +86,7 @@ const SignInForm = () => {
                     </Button>
                     <div className={style.signUpCheck}>
                         <span>Don't have an account? </span>
-                        <Link to='/sign-up' style={{textDecoration: 'none'}}>Sign up</Link>
+                        <Link to='/sign-up' style={{textDecoration: 'none', color: '#1565c0'}}>Sign up</Link>
                     </div>
                 </Paper>
             </form>

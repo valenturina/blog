@@ -7,12 +7,26 @@ const userSlice = createSlice({
     initialState: {
         username: '',
         email: '',
+        bio: '',
+        image: '',
         userStatus: '',
-        userError: ''
+        userError: '',
+        userIsEdit: true
     },
-    reducers: {},
+    reducers: {
+        logOut(state) {
+            state.username = '';
+            state.email = '';
+            state.bio = '';
+            state.image = '';
+            state.userStatus = '';
+        }
+    },
     extraReducers: {
 
     }
 })
 
+export const {logOut} = userSlice.actions;
+
+export default userSlice.reducer;

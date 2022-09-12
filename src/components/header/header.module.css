@@ -1,19 +1,31 @@
 .header {
     background-color: white;
-    padding: 18px 22px;
+    padding: 15px 22px;
     margin-bottom: 20px;
 }
 .index {
     font-weight: 400;
     font-size: 18px;
     line-height: 28px;
-    vertical-align: bottom;
 
 }
 .wrapper {
     display: flex;
     justify-content: flex-end;
-    align-content: baseline;
+    align-items: center;
     gap: 20px;
     width: 100%;
 }
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px
+}
+.username {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+}
+

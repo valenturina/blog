@@ -9,3 +9,6 @@
     flex-wrap: wrap;
     gap: 25px;
 }
+.goback {
+    width: 100%;
+}
