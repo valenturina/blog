@@ -4,20 +4,21 @@ import {Box, Button, Paper, TextField, Divider, FormControlLabel, Checkbox} from
 import {Link} from 'react-router-dom';
 import style from './sign-up.module.css'
 
-const SignUpForm = () => {
+const SignUpForm = ({handleSignUp}) => {
     const {
         register,
         formState: {
             errors,
+            isValid
         },
         handleSubmit,
         watch
     } = useForm({
-        mode: "onChange",
+        mode: "onBlur",
     })
 
     const onFormSubmit = (data) => {
-        console.log(data)
+        handleSignUp({...data})
     }
 
     return(
@@ -117,9 +118,16 @@ const SignUpForm = () => {
                         mb: 1
                     }}/>
                     <FormControlLabel
-                        control={<Checkbox/>}
+                        control={<Checkbox {...register('acceptPersonalInf', {
+                            required: 'Подтвердите согласие на обработку персональных данных'
+                                           })}/>}
                         label=' I agree to the processing of my personal information'
                     />
+                    {!!errors?.acceptPersonalInf && (
+                        <span className={style.personalInfo}>
+                            {errors?.acceptPersonalInf?.message}
+                        </span>
+                    )}
 
                     <Button
                         type='submit'
@@ -129,6 +137,7 @@ const SignUpForm = () => {
                             mt: 2,
                             mb: 2
                         }}
+                        disabled={!isValid}
                     >Create</Button>
 
                     <div className={style.signinCheck}>

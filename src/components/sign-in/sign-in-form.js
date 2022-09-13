@@ -10,16 +10,17 @@ const SignInForm = ({handleLogIn}) => {
         register,
         formState: {
             errors,
+            isValid
         },
         handleSubmit
     } = useForm({
-        mode: 'onBlur'
+        mode: 'onChange'
     })
 
 
 
     const onFormSubmit = (data) => {
-        console.log(data)
+        handleLogIn({...data})
     }
 
     return(
@@ -79,6 +80,7 @@ const SignInForm = ({handleLogIn}) => {
                         type="submit"
                         variant="contained"
                         fullWidth
+                        disabled={!isValid}
                         sx={{
                             mb: 1,
                         }}>
