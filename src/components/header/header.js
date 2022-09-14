@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, useNavigate} from 'react-router-dom'
 import Container from '../container'
 import style from './header.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {Button, Avatar} from "@mui/material";
-import {logOut} from '../../store/user-slice'
+import {logOut, fetchGetCurrentUser} from '../../store/user-slice'
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -13,6 +13,13 @@ const Header = () => {
     const auth = useSelector(state =>  state.user.email);
     const user = useSelector(state => state.user.username);
     const avatar = useSelector(state => state.user.image);
+    const token = localStorage.getItem('token')
+
+    useEffect(()=> {
+        if (token) {
+            dispatch(fetchGetCurrentUser(token))
+        }
+    }, [token, dispatch])
 
     const handleLogOut = () => {
         dispatch(logOut())

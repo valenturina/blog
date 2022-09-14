@@ -1,24 +1,45 @@
 import React, {useEffect, useState} from 'react';
 import {useForm} from "react-hook-form";
 import {useSelector, useDispatch} from "react-redux";
-import {useNavigate, useLocation, useParams} from "react-router-dom";
 import {Box, Paper, Button, TextField, Divider} from "@mui/material";
 
-const ArticleForm = ({onCreate}) => {
 
-    const [tags, setTags] = useState([])
+const ArticleForm = ({onCreate, handleFormSubmit, article}) => {
+    const {
+        register,
+        formState: {
+            errors,
+            isValid
+        },
+        handleSubmit
+    } = useForm({
+        defaultValues: {
+            title: article?.title || '',
+            description: article?.description || '',
+            body: article?.body || '',
+        },
+        mode: 'onBlur'
+    })
+    const [tags, setTags] = useState(article?.tagList || [])
     const [tagValue, setTagValue] = useState('')
 
     const handleAddTag = () => {
-        setTags([...tags, tagValue]);
-        setTagValue('')
+        if (tagValue !== '') {
+            setTags([...tags, tagValue]);
+            setTagValue('')
+        }
     }
     const handleDeleteTag = (id) => {
         setTags(tags.filter((_, index) => index !== id))
     }
+
+    const onFormSubmit = (data) => {
+        handleFormSubmit({...data}, tags)
+    }
+
     return (
         <Box sx={{width: '938px'}}>
-            <form>
+            <form onSubmit={handleSubmit(onFormSubmit)}>
                 <Paper sx={{
                     py: 5,
                     px: 4
@@ -27,6 +48,11 @@ const ArticleForm = ({onCreate}) => {
                     <h4 style={{textAlign: 'center', marginBottom: "20px"}}>{onCreate? 'Create new article' : 'Edit Article'}</h4>
                     <div>Title</div>
                     <TextField
+                        {...register('title', {
+                            required: 'Обязательно для заполнения'
+                        })}
+                        error={!!errors?.title}
+                        helperText={errors?.title?.message}
                         variant="outlined"
                         size="small"
                         fullWidth
@@ -35,9 +61,15 @@ const ArticleForm = ({onCreate}) => {
                             mb: 2,
                             mt: 1
                         }}
+
                     />
                     <div>Short description</div>
                     <TextField
+                        {...register('description', {
+                            required: 'Обязательно для заполнения'
+                        })}
+                        error={!!errors?.description}
+                        helperText={errors?.description?.message}
                         variant="outlined"
                         size="small"
                         fullWidth
@@ -49,6 +81,11 @@ const ArticleForm = ({onCreate}) => {
                     />
                     <div>Text</div>
                     <TextField
+                        {...register('body', {
+                            required: 'Обязательно для заполнения'
+                        })}
+                        error={!!errors?.body}
+                        helperText={errors?.body?.message}
                         variant="outlined"
                         size="small"
                         fullWidth
@@ -64,15 +101,15 @@ const ArticleForm = ({onCreate}) => {
                     <TextField
                         variant="outlined"
                         size="small"
-                        required
                         value={tagValue}
                         id='tag'
                         sx={{
                             my: 1
                         }}
                         onChange={(event) => {
-                            setTagValue(event.target.value);
+                            setTagValue(event.target.value)
                         }}
+                        onSubmit={(e) => e.preventDefault()}
                     />
                     <Button
                         variant="outlined"
@@ -103,13 +140,14 @@ const ArticleForm = ({onCreate}) => {
  
                     <Divider sx={{ mb: 2, mt: 1 }} />
                     <Button
+                        disabled={!isValid}
                         type="submit"
                         variant="contained"
                         sx={{
                             mb: 2,
                             textTransform: 'none',
                             width: '50%',
-                        }}>Send</Button>
+                        }}>{onCreate ? 'Send' : 'Update'}</Button>
                 </Paper>
             </form>
         </Box>

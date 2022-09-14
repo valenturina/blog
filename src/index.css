@@ -31,4 +31,8 @@ a, a:visited {
   color: inherit;
 }
 
+code {
+  white-space: pre-wrap;
+}
+
 /*# sourceMappingURL=index.css.map */

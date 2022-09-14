@@ -24,7 +24,7 @@ const ErrorMessage = ({errorResponse}) => {
     return (
         <Snackbar open={open} autoHideDuration={6000} onClose={closeAlert}>
             <Alert severity="error" sx={{ width: '100%' }}>
-                Произошла ошибка. {errorResponse.statusText}
+                Произошла ошибка.
             </Alert>
         </Snackbar>
 

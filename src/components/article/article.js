@@ -40,16 +40,17 @@ const Article = () => {
                             startIcon={<ArrowBackIosIcon/>}
                             label='Back'
                             onClick={goBack}
+                            sx={{mb: 2}}
                         > Go back</Button>
                     </div>
                     <div className={style.article}>
                         <ArticlePreview article={article} openArticle/>
-                        <Box>
-                            <div>
-                                <ReactMarkdown>
+                        <Box sx={{width: '902px'}}>
+                            <span style={{width: '900px'}}>
+                                <ReactMarkdown style={{whitespace: 'pre-wrap'}}>
                                     {article.body}
                                 </ReactMarkdown>
-                            </div>
+                            </span>
                         </Box>
                     </div>
                 </>)

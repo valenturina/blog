@@ -15,6 +15,7 @@ const ArticleList = () => {
     const articles = useSelector(state => state.articles.articles)
     const articlesCount = useSelector((state) => state.articles.articlesCount)
     const status = useSelector(state=> state.articles.status)
+    const errorResponse = useSelector(state => state.articles.error)
 
     useEffect(()=> {
         dispatch(fetchGetArticles({limit: 5, offset}))
@@ -23,7 +24,7 @@ const ArticleList = () => {
 
     return (
         <div className={style.wrapper}>
-            {status === 'error' && <ErrorMessage/>}
+            {status === 'error' && <ErrorMessage errorResponse={errorResponse}/>}
             {status === 'loading' && <Spinner/>}
             {status === 'fulfilled' &&
                 <Stack

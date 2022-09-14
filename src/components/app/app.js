@@ -9,6 +9,7 @@ import CreateArticle from "../create-article";
 import EditProfile from "../edit-profile";
 import RequireAuth from "../hoc/require-auth";
 import NotFound from "../not-found/not-found";
+import EditArticle from "../edit-article";
 
 
 const App = () => {
@@ -28,6 +29,13 @@ const App = () => {
                         </RequireAuth>
                     }/>
                 <Route path='profile' element={<RequireAuth><EditProfile/></RequireAuth>}/>
+                <Route
+                    path='articles/:slug/edit'
+                    element={
+                        <RequireAuth>
+                            <EditArticle/>
+                        </RequireAuth>
+                    }/>
                 <Route path="*" element={<NotFound/>}/>
             </Route>
         </Routes>
